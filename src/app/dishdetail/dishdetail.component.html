@@ -24,7 +24,7 @@
     </mat-card>
   </div>
   
-  <div fxFlex="40">
+  <div fxFlex="40" *ngIf="dish">
   <mat-list>  
       <h3> Comments </h3>
     <mat-list-item *ngFor="let i of dish.comments">
