@@ -14,10 +14,10 @@ export class PromotionService {
   }
 
   getDish(id:string): Promotion {
-    return PROMOTIONS.filter((promo)=>{promo.id===id})[0]
+    return PROMOTIONS.filter((promo)=>(promo.id===id))[0]
   }
 
   getFeaturedPromotion():Promotion {
-    return PROMOTIONS.filter((promo)=>promo.featured)[0]
+    return PROMOTIONS.filter((promotion)=>promotion.featured)[0]
   }
 }
