@@ -9,17 +9,25 @@ export class LeaderService {
 
   constructor() { }
 
-  getLeaders():Leader[]{
-    return LEADERS;
+  getLeaders():Promise<Leader[]>{
+    return new Promise(resolve => {
+      //simulate server latency 2 second delay
+      setTimeout(()=> resolve(LEADERS), 2000)
+    });
   }
+    
+  getSpecLeader(id:string):Promise<Leader> {    
+    return new Promise(resolve => {
+      //simulate server latency 2 second delay
+      setTimeout(()=> resolve(LEADERS.filter((lead)=>(lead.id===id))[0]), 2000);
+  });
+}
 
-  getSpecLeader(id:string):Leader {
-    return LEADERS.filter((lead)=>(lead.id===id))[0]
-  }
-
-  getFeaturedLeader():Leader {
-    return LEADERS.filter((leader)=>leader.featured)[0]
-  }
-
+  getFeaturedLeader():Promise<Leader> {
+    return new Promise(resolve => {
+      //simulate server latency 2 second delay
+      setTimeout(()=> resolve(LEADERS.filter((leader)=>leader.featured)[0]),2000);
+  });
+}
 
 }
