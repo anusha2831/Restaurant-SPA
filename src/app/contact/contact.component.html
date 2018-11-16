@@ -35,36 +35,36 @@
       </div>
     </div>
   </div>
-
-  <div fxFlex fxFlexOffset="20px" class="form-size">
-    <h3>Send us your feedback</h3>
+  <div fxFlex><h3>Send us your feedback</h3></div>
+  <div fxFlex fxFlexOffset="20px" class="form-size"  *ngIf="showFeedbackForm" [@expand] > 
+    
     <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
     <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()"> 
       <p>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
-          <mat-error *ngIf="feedbackForm.get('firstname').hasError('required') && feedbackForm.get('firstname').touched">
-            First Name is required
+          <mat-error *ngIf="formErrors.firstname">
+            {{ formErrors.firstname}}
           </mat-error>
         </mat-form-field>
         <mat-form-field class="half-width">
             <input matInput formControlName="lastname" placeholder="Last Name" type="text" required> 
-            <mat-error *ngIf="feedbackForm.get('lastname').hasError('required') && feedbackForm.get('lastname').touched">
-                Last Name is required
+            <mat-error *ngIf="formErrors.lastname">
+                {{ formErrors.lastname}}
               </mat-error>
           </mat-form-field>
       </p>
       <p>
           <mat-form-field class="half-width">
-            <input matInput formControlName="telnum" placeholder="Tel. Num" type="tel" required>
-            <mat-error *ngIf="feedbackForm.get('telnum').hasError('required') && feedbackForm.get('telnum').touched">
-                Tel. Num is required
+            <input matInput formControlName="telnum" placeholder="Tel. Num" type="tel" pattern="[0-9]*" required>
+            <mat-error *ngIf="formErrors.telnum">
+                {{ formErrors.telnum}}
               </mat-error>
           </mat-form-field>
           <mat-form-field class="half-width">
-              <input matInput formControlName="email" placeholder="Email" type="email" required>
-              <mat-error *ngIf="feedbackForm.get('email').hasError('required') && feedbackForm.get('email').touched">
-                  Email is required
+              <input matInput formControlName="email" placeholder="Email" type="email" email required>
+              <mat-error *ngIf="formErrors.email">
+                  {{ formErrors.email}}
                 </mat-error>
             </mat-form-field>
         </p>
@@ -89,5 +89,26 @@
         <button type="submit" mat-button class="background-primary text-floral-white"
         [disabled]="feedbackForm.invalid">Submit</button>
     </form>
+    
   </div>
+  <div fxFlex *ngIf="showFormData" [@expand]>
+    <h3>Your Submission</h3>
+    <mat-list-item >        
+          <p matLine>First Name: {{feedback.firstname}} </p>
+          <p matLine>Last Name: {{feedback.lastname}}</p>
+          <p matLine>Tel. Number: {{feedback.telnum}}</p>
+          <p matLine>Email: {{feedback.email}}</p>
+          <p matLine>Contact You?: {{feedback.agree}}</p>
+          <p matLine>How?: {{feedback.contacttype}}</p>
+          <p matLine>Feedback: {{feedback.message}}</p>
+      </mat-list-item>
+  </div>
+  <div fxFlex *ngIf="submittedForm">
+      <h4>Submitting Form</h4><mat-spinner></mat-spinner>
+    </div>
+    <div fxFlex *ngIf="fbErrMess">
+      <h2>Error</h2>
+      <h4>{{errMess}}</h4>
+    </div>
+  
 </div>
